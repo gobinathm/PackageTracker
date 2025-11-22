@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Carrier Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .result { margin: 20px 0; padding: 15px; border: 2px solid #ddd; }
+        .pass { background: #e8f5e9; border-color: #4caf50; }
+        .fail { background: #ffebee; border-color: #f44336; }
+    </style>
+</head>
+<body>
+    <h1>Carrier Detection Test</h1>
+    <div id="results">Loading...</div>
+
+    <script>
+        // Copy PROVIDERS and ProviderDetector directly from app.js
+        // This is a minimal inline version for testing
+        const PROVIDERS = {
+            PUROLATOR: {
+                name: 'Purolator',
+                patterns: [
+                    /^[A-Z]{3}[0-9]{9}$/,
+                    /^[0-9]{12}$/
+                ],
+                trackingUrl: 'https://www.purolator.com/en/shipping/tracker?pin='
+            },
+            CANADAPOST: {
+                name: 'Canada Post',
+                patterns: [
+                    /^[A-Z]{2}[0-9]{9}[A-Z]{2}$/,
+                    /^[0-9]{16}$/,
+                    /^[0-9]{13}$/
+                ],
+                trackingUrl: 'https://www.canadapost-postescanada.ca/track-reperage/en#/search?searchFor='
+            }
+        };
+
+        class ProviderDetector {
+            static detect(trackingNumber) {
+                const cleanNumber = trackingNumber.trim().toUpperCase();
+
+                for (const [key, provider] of Object.entries(PROVIDERS)) {
+                    for (const pattern of provider.patterns) {
+                        if (pattern.test(cleanNumber)) {
+                            return {
+                                provider: provider.name,
+                                trackingUrl: provider.trackingUrl + cleanNumber,
+                                providerKey: key.toLowerCase()
+                            };
+                        }
+                    }
+                }
+
+                return {
+                    provider: 'Unknown',
+                    trackingUrl: null,
+                    providerKey: 'unknown'
+                };
+            }
+        }
+
+        // Test
+        const test1 = 'XCC023368173';
+        const test2 = '7322824924971851';
+
+        const result1 = ProviderDetector.detect(test1);
+        const result2 = ProviderDetector.detect(test2);
+
+        console.log('Test 1:', test1, '→', result1);
+        console.log('Test 2:', test2, '→', result2);
+
+        document.getElementById('results').innerHTML = `
+            <div class="result ${result1.provider === 'Purolator' ? 'pass' : 'fail'}">
+                <h2>Test 1: ${test1}</h2>
+                <p><strong>Expected:</strong> Purolator</p>
+                <p><strong>Got:</strong> ${result1.provider}</p>
+                <p><strong>URL:</strong> ${result1.trackingUrl || 'N/A'}</p>
+            </div>
+            <div class="result ${result2.provider === 'Canada Post' ? 'pass' : 'fail'}">
+                <h2>Test 2: ${test2}</h2>
+                <p><strong>Expected:</strong> Canada Post</p>
+                <p><strong>Got:</strong> ${result2.provider}</p>
+                <p><strong>URL:</strong> ${result2.trackingUrl || 'N/A'}</p>
+            </div>
+        `;
+    </script>
+</body>
+</html>

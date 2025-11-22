@@ -298,7 +298,7 @@ class PackageStorage {
 // Provider Detector
 class ProviderDetector {
     static detect(trackingNumber) {
-        const cleanNumber = trackingNumber.trim().toUpperCase();
+        const cleanNumber = trackingNumber.trim().toUpperCase().replace(/[\s-]/g, '');
 
         for (const [key, provider] of Object.entries(PROVIDERS)) {
             for (const pattern of provider.patterns) {
