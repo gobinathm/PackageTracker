@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Carrier Detection</title>
+</head>
+<body>
+    <h1>Carrier Detection Debug</h1>
+    <p>Open browser console (F12) to see debug output</p>
+
+    <script src="app.js?v=2.1&t=20251122"></script>
+    <script>
+        console.log('=== Testing Carrier Detection ===');
+        console.log('');
+
+        // Test 1
+        const test1 = 'XCC023368173';
+        console.log('Test 1: ' + test1);
+        console.log('  Expected: Purolator');
+        const result1 = ProviderDetector.detect(test1);
+        console.log('  Got:', result1);
+        console.log('');
+
+        // Test 2
+        const test2 = '7322824924971851';
+        console.log('Test 2: ' + test2);
+        console.log('  Expected: Canada Post');
+        const result2 = ProviderDetector.detect(test2);
+        console.log('  Got:', result2);
+        console.log('');
+
+        // Show provider order
+        console.log('=== Provider Order ===');
+        Object.keys(PROVIDERS).forEach((key, index) => {
+            console.log((index + 1) + '. ' + key + ': ' + PROVIDERS[key].name);
+        });
+    </script>
+</body>
+</html>

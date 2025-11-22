@@ -113,6 +113,12 @@ h2 {
     margin-bottom: 20px;
 }
 
+.header-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 .empty-state {
     text-align: center;
     padding: 40px 20px;
@@ -200,8 +206,78 @@ h2 {
     color: white;
 }
 
+.provider-canadapost {
+    background: #d32027;
+    color: white;
+}
+
 .provider-unknown {
     background: #6c757d;
+    color: white;
+}
+
+.provider-gls_us {
+    background: #003a70;
+    color: white;
+}
+
+.provider-pitneybowes {
+    background: #ff6700;
+    color: white;
+}
+
+.provider-newgistics {
+    background: #00539f;
+    color: white;
+}
+
+.provider-apc {
+    background: #005eb8;
+    color: white;
+}
+
+.provider-estes {
+    background: #c8102e;
+    color: white;
+}
+
+.provider-rrdonnelley {
+    background: #0066b2;
+    color: white;
+}
+
+.provider-globalpost {
+    background: #0095da;
+    color: white;
+}
+
+.provider-purolator {
+    background: #ee3124;
+    color: white;
+}
+
+.provider-ics {
+    background: #004b8d;
+    color: white;
+}
+
+.provider-canpar {
+    background: #e31837;
+    color: white;
+}
+
+.provider-loomis {
+    background: #006fb9;
+    color: white;
+}
+
+.provider-dayross {
+    background: #003da5;
+    color: white;
+}
+
+.provider-dicom {
+    background: #0057b8;
     color: white;
 }
 
@@ -231,6 +307,25 @@ h2 {
     margin-top: 10px;
 }
 
+.date-archived {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.archived-card {
+    opacity: 0.85;
+    border-left-color: #999;
+}
+
+.btn-warning {
+    background: #ffc107;
+    color: #333;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
 @media (max-width: 600px) {
     header h1 {
         font-size: 2rem;
@@ -247,6 +342,15 @@ h2 {
         gap: 10px;
     }
 
+    .header-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .header-buttons button {
+        width: 100%;
+    }
+
     .package-header {
         flex-direction: column;
         gap: 10px;
@@ -254,6 +358,12 @@ h2 {
 
     .package-actions {
         width: 100%;
+        flex-wrap: wrap;
         justify-content: flex-end;
+    }
+
+    .package-actions button {
+        flex: 1;
+        min-width: 80px;
     }
 }

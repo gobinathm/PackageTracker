@@ -9,6 +9,7 @@ A simple, client-side web application for tracking packages from multiple shippi
   - UPS (United Parcel Service)
   - FedEx
   - DHL
+  - Canada Post
   - Amazon Logistics
   - OnTrac
   - LaserShip
@@ -87,6 +88,11 @@ A simple, client-side web application for tracking packages from multiple shippi
 - 10-11 digits
 - 20 digits
 - 3 letters + 7 digits
+
+### Canada Post
+- 13 digits
+- 16 digits
+- 2 letters + 9 digits + 2 letters (e.g., CA123456789CA)
 
 ### Amazon Logistics
 - TBA followed by 12 digits

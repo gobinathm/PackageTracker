@@ -42,8 +42,14 @@
         <section class="packages-section">
             <div class="section-header">
                 <h2>Your Packages</h2>
-                <button id="clearAllBtn" class="btn btn-secondary">Clear All</button>
+                <div class="header-buttons">
+                    <button id="viewArchiveBtn" class="btn btn-secondary">View Archive (0)</button>
+                    <button id="backupBtn" class="btn btn-secondary">Backup Data</button>
+                    <button id="restoreBtn" class="btn btn-secondary">Restore Data</button>
+                    <button id="clearAllBtn" class="btn btn-secondary">Clear All</button>
+                </div>
             </div>
+            <input type="file" id="restoreFileInput" accept=".json" style="display: none;">
             <div id="packagesContainer">
                 <div class="empty-state">
                     <p>No packages tracked yet. Add a tracking number above to get started!</p>
@@ -52,6 +58,6 @@
         </section>
     </div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=2.1&t=20251122"></script>
 </body>
 </html>
