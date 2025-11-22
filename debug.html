@@ -7,32 +7,59 @@
     <h1>Carrier Detection Debug</h1>
     <p>Open browser console (F12) to see debug output</p>
 
-    <script src="app.js?v=2.1&t=20251122"></script>
     <script>
-        console.log('=== Testing Carrier Detection ===');
-        console.log('');
+        // Load the detection code without initializing PackageManager
+        // Copy just what we need from app.js
+        fetch('app.js?v=2.1&t=20251122')
+            .then(r => r.text())
+            .then(code => {
+                // Extract PROVIDERS and ProviderDetector
+                const providersMatch = code.match(/const PROVIDERS = \{[\s\S]*?\n\};/);
+                const detectorMatch = code.match(/class ProviderDetector \{[\s\S]*?\n\}/);
 
-        // Test 1
-        const test1 = 'XCC023368173';
-        console.log('Test 1: ' + test1);
-        console.log('  Expected: Purolator');
-        const result1 = ProviderDetector.detect(test1);
-        console.log('  Got:', result1);
-        console.log('');
+                if (providersMatch && detectorMatch) {
+                    eval(providersMatch[0]);
+                    eval(detectorMatch[0]);
 
-        // Test 2
-        const test2 = '7322824924971851';
-        console.log('Test 2: ' + test2);
-        console.log('  Expected: Canada Post');
-        const result2 = ProviderDetector.detect(test2);
-        console.log('  Got:', result2);
-        console.log('');
+                    console.log('=== Testing Carrier Detection ===');
+                    console.log('');
 
-        // Show provider order
-        console.log('=== Provider Order ===');
-        Object.keys(PROVIDERS).forEach((key, index) => {
-            console.log((index + 1) + '. ' + key + ': ' + PROVIDERS[key].name);
-        });
+                    // Test 1
+                    const test1 = 'XCC023368173';
+                    console.log('Test 1: ' + test1);
+                    console.log('  Expected: Purolator');
+                    const result1 = ProviderDetector.detect(test1);
+                    console.log('  Got Provider:', result1.provider);
+                    console.log('  Got Key:', result1.providerKey);
+                    console.log('  Full Result:', result1);
+                    console.log('');
+
+                    // Test 2
+                    const test2 = '7322824924971851';
+                    console.log('Test 2: ' + test2);
+                    console.log('  Expected: Canada Post');
+                    const result2 = ProviderDetector.detect(test2);
+                    console.log('  Got Provider:', result2.provider);
+                    console.log('  Got Key:', result2.providerKey);
+                    console.log('  Full Result:', result2);
+                    console.log('');
+
+                    // Show provider order
+                    console.log('=== Provider Order ===');
+                    Object.keys(PROVIDERS).forEach((key, index) => {
+                        console.log((index + 1) + '. ' + key + ': ' + PROVIDERS[key].name);
+                    });
+
+                    // Display results on page
+                    document.body.innerHTML += `
+                        <div style="margin: 20px; font-family: monospace;">
+                            <h2>Results:</h2>
+                            <p><strong>${test1}</strong> → ${result1.provider}</p>
+                            <p><strong>${test2}</strong> → ${result2.provider}</p>
+                        </div>
+                    `;
+                }
+            });
     </script>
 </body>
 </html>
